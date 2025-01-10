@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymelead.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        section {
+            background-color: rgba(0,0,0,0.6);
+            height: 100vh;
+            color: white;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <section layout:fragment="body" class="py-5 py-5 d-grid justify-content-center">
+
+        <div class="container" sec:authorize="!hasRole('ROLE_ADMIN')">
+            <div class="alert alert-success">
+                You do not have permission to edit a user!
+            </div>
+        </div>
+
+        <div class="container" style="width: 400px;" sec:authorize="hasRole('ROLE_ADMIN')">
+            <div th:if="${param.fail}" class="alert alert-success">
+                Username or email already exist!
+            </div>
+            <form id="form" class="needs-validation" role="form" method="post" th:action="@{/user/{userId}/edit(userId=${user.Id})}" th:object="${user}" >
+                <div class="mb-2">
+                    <div class="mb-2">
+                        <label for="username" class="h5">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Username" th:field="*{username}" name="username" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="email" class="h5">Email</label>
+                        <input type="text" class="form-control" id="email" placeholder="email" th:field="*{email}" name="email" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="password" class="h5">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password" th:field="*{password}" name="password" required>
+                    </div>
+                </div>
+                <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>
+                <button th:href="@{/register}" class="btn btn-primary mt-3" type="submit">Edit A User</button>
+            </form>
+        </div>
+    </section>
+</main>
+</body>
+</html>

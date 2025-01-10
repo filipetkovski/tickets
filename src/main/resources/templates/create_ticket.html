@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymelead.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    section {
+      background-color: rgba(0,0,0,0.6);
+      height: 100vh;
+      color: white;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+  <section layout:fragment="body" class="py-5 m-auto">
+    <div class="container">
+      <div th:if="${param.success}" class="alert alert-success">
+        The user is register successfully!
+      </div>
+    </div>
+    <div class="container">
+      <div class="container" sec:authorize="!isAuthenticated()">
+        <div class="alert alert-success">
+          You do not have permission to create a ticket!
+        </div>
+      </div>
+      <div sec:authorize="isAuthenticated()" class="d-grid justify-content-center">
+        <h1 class="h1 mb-2">Create A Ticket</h1>
+        <form id="form" role="form" method="post" th:action="@{/ticket/create}" th:object="${ticket}" style="width: 400px;">
+          <div class="mb-2">
+            <div class="mb-2">
+              <label for="numberOfPeople" class="h5">Number of people</label>
+              <input type="number" value="1" min="1" class="form-control" id="numberOfPeople" th:field="*{numberOfPeople}" name="numberOfPeople" required>
+            </div>
+            <div class="mb-2">
+              <label for="isGroup" class="h5">Group</label>
+              <input type="checkbox" id="isGroup" name="isGroup" placeholder="isGroup" >
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Create</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
