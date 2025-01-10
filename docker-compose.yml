@@ -1,0 +1,24 @@
+version: '3'
+services:
+  backend:
+    image: filipetkovski/ticket
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/ticketmanager
+      SPRING_DATASOURCE_USERNAME: "admin"
+      SPRING_DATASOURCE_PASSWORD: "admin"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  database:
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ticketmanager
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
