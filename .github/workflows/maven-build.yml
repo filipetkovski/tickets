@@ -12,18 +12,14 @@ jobs:
 
     services:
       postgres:
-        image: postgres:12
+        image: postgres
         env:
           POSTGRES_USER: admin
           POSTGRES_PASSWORD: admin
           POSTGRES_DB: ticketmanager
         ports:
           - 5432:5432
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - name: Check out the repository
