@@ -16,11 +16,10 @@ spec:
       containers:
         - name: backend
           image: filipetkovski/ticket:latest
-          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           envFrom:
             - configMapRef:
-                name: configmap
+                name: backend-config
             - secretRef:
                 name: database-secrets
