@@ -22,3 +22,4 @@ services:
       POSTGRES_DB: ticketmanager
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
+
