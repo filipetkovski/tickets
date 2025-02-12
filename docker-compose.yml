@@ -20,5 +20,5 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_DB: ticketmanager
-      POSTGRES_USER: "admin"
+      POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "admin"
